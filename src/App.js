@@ -1,9 +1,10 @@
 import React from "react"
+import Login from "./components/Login";
 
-const App = (props) => {
+const App = () => {
   return (
     <div>
-      Helllo
+      <Login/>
     </div>
   )
 };
