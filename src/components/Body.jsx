@@ -6,7 +6,7 @@ import axios from 'axios'
 import { reducerCases } from '../utils/Constants'
 
 export default function Body({ headerBg }) {
-    const [{ token, user, selectedPlayListId, selectedPlayList }, dispatch] = useStateProvider()
+    const [{ token, selectedPlayListId, selectedPlayList }, dispatch] = useStateProvider()
     useEffect(() => {
         const getInitPlayList = async () => {
             const { data } = await axios.get(`https://api.spotify.com/v1/playlists/${selectedPlayListId}`, {
@@ -55,7 +55,7 @@ export default function Body({ headerBg }) {
                 'Content-Type': 'application/json'
             }
         })
-        if (response.status == 204) {
+        if (response.status === 204) {
             const currentPlaying = {
                 id,
                 name,

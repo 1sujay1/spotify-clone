@@ -5,7 +5,7 @@ import axios from 'axios';
 import { reducerCases } from '../utils/Constants';
 import { configs } from '../utils/config';
 export default function CurrentTrack() {
-    const [{ token, playlists, playerState, currentlyPlaying }, dispatch] = useStateProvider();
+    const [{ token, currentlyPlaying }, dispatch] = useStateProvider();
     console.log("currentlyPlaying", currentlyPlaying);
     useEffect(() => {
         const getCurrentTrack = async () => {
@@ -19,7 +19,7 @@ export default function CurrentTrack() {
                 })
             }
             console.log("response", response);
-            if (response && response.data != "") {
+            if (response && response.data !== "") {
                 const { item } = response.data
                 const currentlyPlaying = {
                     id: item.id,

@@ -5,7 +5,7 @@ import axios from 'axios'
 import { configs } from '../utils/config'
 
 export default function Volume() {
-    const [{ token }, dispatch] = useStateProvider()
+    const [{ token }] = useStateProvider()
     const setVolume = async (e) => {
         if (configs.isProduction) {
             await axios.put(`https://api.spotify.com/v1/me/player/volume`, {}, {

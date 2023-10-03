@@ -5,7 +5,7 @@ import { CgProfile } from 'react-icons/cg'
 import { useStateProvider } from '../utils/StateProvider'
 export default function Navbar({ navBg }) {
     console.log("navBg", navBg);
-    const [{ token, user }, dispatch] = useStateProvider()
+    const [{ user }] = useStateProvider()
     return (
         <Container navBg={navBg}>
             <div className="search_bar">
@@ -13,7 +13,7 @@ export default function Navbar({ navBg }) {
                 <input type="text" placeholder='Artists, songs, podcasts' />
             </div>
             <div className="avatar">
-                <a href="#">
+                <a href="/#">
                     <CgProfile />
                     <span>{user?.name}</span>
                 </a>
