@@ -2,17 +2,20 @@ import React from 'react'
 import styled from 'styled-components'
 import { useStateProvider } from '../utils/StateProvider'
 import axios from 'axios'
+import { configs } from '../utils/config'
 
 export default function Volume() {
     const [{ token }, dispatch] = useStateProvider()
     const setVolume = async (e) => {
-        await axios.put(`https://api.spotify.com/v1/me/player/volume`, {}, {
-            headers: {
-                params: { volume_percent: parseInt(e.target.value) },
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
+        if (configs.isProduction) {
+            await axios.put(`https://api.spotify.com/v1/me/player/volume`, {}, {
+                headers: {
+                    params: { volume_percent: parseInt(e.target.value) },
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+        }
     }
     return (
         <Container>

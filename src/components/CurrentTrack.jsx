@@ -3,20 +3,23 @@ import styled from 'styled-components'
 import { useStateProvider } from '../utils/StateProvider'
 import axios from 'axios';
 import { reducerCases } from '../utils/Constants';
+import { configs } from '../utils/config';
 export default function CurrentTrack() {
     const [{ token, playlists, playerState, currentlyPlaying }, dispatch] = useStateProvider();
     console.log("currentlyPlaying", currentlyPlaying);
     useEffect(() => {
         const getCurrentTrack = async () => {
-            const response = await axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-
+            var response = "";
+            if (configs.isProduction) {
+                response = await axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+            }
             console.log("response", response);
-            if (response.data != "") {
+            if (response && response.data != "") {
                 const { item } = response.data
                 const currentlyPlaying = {
                     id: item.id,
@@ -27,9 +30,10 @@ export default function CurrentTrack() {
                 }
                 dispatch({ type: reducerCases.SET_PLAYING, payload: currentlyPlaying })
             }
-
         }
+
         getCurrentTrack()
+
     }, [token, dispatch])
 
     return (

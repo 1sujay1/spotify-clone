@@ -6,28 +6,34 @@ import { FiRepeat } from 'react-icons/fi'
 import { useStateProvider } from '../utils/StateProvider'
 import axios from 'axios'
 import { reducerCases } from '../utils/Constants'
+import { configs } from '../utils/config'
 
 export default function PlayerControls() {
-    const [{ token, playerState }, dispatch] = useStateProvider()
-    const changeTrack = async (type) => {
-        await axios.post(`https://api.spotify.com/v1/me/player/${type}`, {}, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
+    const [{ token, playerState }, dispatch] = useStateProvider();
 
-        const response = await axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
+
+    const changeTrack = async (type) => {
+        var response = "";
+        if (configs.isProduction) {
+            await axios.post(`https://api.spotify.com/v1/me/player/${type}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            response = await axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+        }
 
         console.log("response in playercontrols", response);
 
 
-        if (response.data != "") {
+        if (response && response.data != "") {
             const { item } = response.data
             const currentlyPlaying = {
                 id: item.id,
@@ -44,13 +50,15 @@ export default function PlayerControls() {
 
     const changeState = async () => {
         const state = playerState ? "pause" : 'play';
-        const response = await axios.put(`https://api.spotify.com/v1/me/player/${state}`, {}, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        console.log("response", response);
+        if (configs.isProduction) {
+            const response = await axios.put(`https://api.spotify.com/v1/me/player/${state}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            console.log("response", response);
+        }
         dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: !playerState })
     }
 
