@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from 'styled-components'
 
 const Login = () => {
+
+    useEffect(() => {
+        let baseURL = window.location.href;
+        localStorage.setItem('baseURL', baseURL)
+    }, [])
     const handleClick = () => {
         const clientId = "6277cd9a426b4fb190d515a6db4a0ced"
-        const redirectUrl = 'https://651c4e077992d3748ca8f0f2--voluble-blini-7b1515.netlify.app/'
+        const redirectUrl = localStorage.getItem('baseURL')
         const apiUrl = "https://accounts.spotify.com/authorize"
         const scope = ['user-read-email', 'user-read-private', 'user-read-playback-state',
             'user-modify-playback-state', 'user-read-currently-playing', 'user-read-playback-position',
