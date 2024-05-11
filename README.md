@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started with Create React App (Demo Images attached below)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -13,6 +13,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+## Sample Project Demo Images
+
+![spotify_1](https://github.com/1sujay1/spotify-clone/assets/70701029/213629e7-d555-4727-a2eb-14c1dcc34106) ![spotify_2](https://github.com/1sujay1/spotify-clone/assets/70701029/b136a708-ee2d-4342-8736-6d09b6d7eeca)
+
+![spotify_3](https://github.com/1sujay1/spotify-clone/assets/70701029/3e8a26e6-8a92-4793-ae23-fd4947b12021)
+![spotify_4](https://github.com/1sujay1/spotify-clone/assets/70701029/8867275c-df7b-40ac-9b96-843370b2db4f)
+
 
 ### `npm test`
 
